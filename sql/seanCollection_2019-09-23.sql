@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.7.27)
 # Database: seanCollection
-# Generation Time: 2019-09-23 13:29:12 +0000
+# Generation Time: 2019-09-23 14:34:32 +0000
 # ************************************************************
 
 
@@ -20,31 +20,31 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
-# Dump of table things
+# Dump of table widgets
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `things`;
+DROP TABLE IF EXISTS `widgets`;
 
-CREATE TABLE `things` (
+CREATE TABLE `widgets` (
   `id` int(1) unsigned NOT NULL AUTO_INCREMENT,
-  `widgetName` varchar(255) DEFAULT NULL,
-  `widgetDescription` varchar(255) DEFAULT NULL,
-  `widgetSize` int(11) DEFAULT NULL,
+  `widgetName` varchar(255) NOT NULL DEFAULT '',
+  `widgetDescription` varchar(255) NOT NULL DEFAULT '',
+  `widgetSize` int(11) NOT NULL,
   `widgetRating` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-LOCK TABLES `things` WRITE;
-/*!40000 ALTER TABLE `things` DISABLE KEYS */;
+LOCK TABLES `widgets` WRITE;
+/*!40000 ALTER TABLE `widgets` DISABLE KEYS */;
 
-INSERT INTO `things` (`id`, `widgetName`, `widgetDescription`, `widgetSize`, `widgetRating`)
+INSERT INTO `widgets` (`id`, `widgetName`, `widgetDescription`, `widgetSize`, `widgetRating`)
 VALUES
 	(1,'Widget One','This is the first ever Widget',1,1),
 	(2,'Widget Two','This is the second Widget',2,3),
 	(3,'Widget Three','This is the third Widget',3,9),
 	(4,'Widget Four','This is the fourth Widget',5,5);
 
-/*!40000 ALTER TABLE `things` ENABLE KEYS */;
+/*!40000 ALTER TABLE `widgets` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
