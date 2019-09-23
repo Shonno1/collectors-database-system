@@ -1,5 +1,10 @@
 <?php
 function connectDb () {
+    /*
+     * Opens a connection to the database
+     *
+     * @Return STRING - Connection String
+     */
     // connect to database
     $db = new PDO ('mysql:host=db; dbname=seanCollection','root','password');
     // set default return mode to ASSOC_ARRAY
