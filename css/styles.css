@@ -1,0 +1,77 @@
+@charset "utf-8";
+/* CSS Document */
+* {
+    box-sizing: border-box;
+}
+
+/* BASIC HTML */
+html {
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    font-size: 16px;
+}
+
+body {
+    text-align: center;
+}
+
+h1, h2 {
+    padding: 10px;
+}
+
+h1, h2, h3 {
+    font-weight: bold;
+    padding: 5px;
+}
+
+h1 {
+    font-size: 2em;
+}
+
+h2 {
+    font-size: 1.6em;
+    border-bottom: 2px solid darkgrey;
+}
+
+h3 {
+    font-size: 1.2em;
+}
+
+p {
+    padding: 10px;
+}
+
+main {
+
+}
+
+section {
+    width: 1000px;
+    margin: 0 auto;
+    overflow: auto;
+}
+
+/* first row (headings) */
+.innerSection {
+    margin: 0 auto;
+}
+
+.headingsRow {
+}
+
+.heading {
+    width: 249px;
+    float: left;
+    overflow: hidden;
+}
+
+.dataRow {
+    width: 100%;
+    border-bottom: 2px solid darkgrey;
+    overflow: hidden;
+}
+
+.dataCol {
+    width: 248px;
+    float: left;
+    overflow: hidden;
+}
