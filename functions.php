@@ -1,4 +1,5 @@
 <?php
+
 function checkThePost(): array
 {
     /** checks the post and returns the data **/
@@ -141,5 +142,249 @@ function extractDataIntoHtml($results)
         echo '</div>';
 
     }
+
+}
+
+function validateData(string $widgetName, string $widgetDescription, int $widgetSize, int $widgetRating): array
+{
+    /** ensures correct data-types and lengths recursively **/
+
+    /*
+     * This function:
+     *      1 receives two strings and two integers
+     *      2 creates an array for collecting all of the validated data
+     *      3 checks that the name is less than or equal to 255
+     *      4 adds the name to the array
+     *      4 checks that the description is less than or equal to 255
+     *      4 adds the description to the array
+     *      5 checks that the size is between 0 and 9
+     *      4 adds the size to the array
+     *      6 checks that the rating is between 0 and 5
+     *      4 adds the rating to the array
+     *      8 returns an array of validated data
+     *      9 bounces back to the input page with an error message if anything goes wrong at any stage of the checking
+     *
+     * @param STRING - the name of the widget
+     *
+     * @param STRING - the description of the widget
+     *
+     * @param STRING - the size of the widget
+     *
+     * @param STRING - the rating of the widget
+     *
+     * @returns ARRAY - the cleaned data
+     */
+
+    //set the location for bounce-backs
+    $bounceTo = 'addWidget.php';
+
+    //create an array for collecting the validated data
+    $validData = [];
+
+    //check if the name string is less than or equal to 255 characters long
+    if (strlen($widgetName) <= 255) {//yes
+
+        //add the name to the array
+        $validData ['widgetName'] = $widgetName;
+        //check if the description string is less than or equal to 255 characters long
+        if (strlen($widgetDescription) <= 255) {//yes
+
+            //add the key value pair to the array
+            $validData ['widgetDescription'] = $widgetDescription;
+
+            //check if the size integer is between 0 and 9
+            if (($widgetSize >= 0) && ($widgetSize <= 9)) {//yes
+
+                //add the key value pair to the array
+                $validData ['widgetSize'] = $widgetSize;
+
+                //check if the rating integer is between 0 and 5
+                if ($widgetRating >= 0 && $widgetRating <= 5) {//yes
+
+                    //add the key value pair to the array
+                    $validData ['widgetRating'] = $widgetRating;
+
+                } else {
+
+                    //bounce back to input page with a message
+                    header('Location: ' . $bounceTo . '?computerSays=Error: your widget\'s rating is not a number between 0 and 5. Please Try again.');
+
+                }
+
+
+            } else {
+
+                //bounce back to input page with a message
+                header('Location: ' . $bounceTo . '?computerSays=Error: your widget\'s size is not a number between 0 and 9. Please Try again.');
+
+            }
+
+
+        } else {
+
+            //bounce back to input page with a message
+            header('Location: ' . $bounceTo . '?computerSays=Error: your widget\'s description is larger than 255 characters long. Please Try again.');
+
+        }
+
+
+    } else {
+
+        //bounce back to input page with a message
+        header('Location: ' . $bounceTo . '?computerSays=Error: your widget\'s name is larger than 255 characters. Please Try again.');
+
+    }
+
+    //return validated data
+    return $validData;
+
+}
+
+function cleanTheData(string $widgetName, string $widgetDescription, int $widgetSize, int $widgetRating): array
+{
+    /** removes specified escape characters recursively **/
+
+    /*
+     * This function:
+     *      1 receives two strings and two integers
+     *      2 creates an array for collecting all of the cleaned data
+     *      3 checks that the name string is not empty
+     *      4 removes escape characters
+     *      5 adds the name to the array
+     *      6 checks that the description string is not empty
+     *      7 removes escape characters
+     *      8 adds the description to the array
+     *      9 checks that the size string is not empty
+     *      10 removes escape characters
+     *      11 adds the size to the array
+     *      12 checks that the rating string is not empty
+     *      14 removes escape characters
+     *      15 adds the rating to the array
+     *      16 returns the array of validated data
+     *      17 bounces back to the input page with an error message if anything goes wrong at any stage of the checking
+     *
+     * @param STRING - the name of the widget
+     *
+     * @param STRING - the description of the widget
+     *
+     * @param INTEGER - the size of the widget
+     *
+     * @param INTEGER - the rating of the widget
+     *
+     * @returns ARRAY - the cleaned data
+     */
+
+    //create an array to put the checked data into
+    $cleanedStrings = [];
+
+    //create an array for the characters that we want to remove
+    $charactersToBeRemoved = [':', '-', '/', '*', ')', '(', ','];
+
+    //check that the name has been received
+    if (isset($widgetName)) {//yes
+
+        //remove any escape characters from the string
+        $widgetName = str_replace($charactersToBeRemoved, '', $widgetName);
+
+        //add the string to the array
+        $cleanedStrings['$widgetName'] = $widgetName;
+
+        //check that the description has been received
+        if (isset($widgetDescription)) {//yes
+
+            //remove any escape characters from the string
+            $widgetDescription = str_replace($charactersToBeRemoved, '', $widgetDescription);
+
+            //add the string to the array
+            $cleanedStrings['widgetDescription'] = $widgetDescription;
+
+            //check that the size has been received
+            if (isset($widgetSize)) {//yes
+
+                //remove any escape characters from the string
+                $widgetSize = str_replace($charactersToBeRemoved, '', $widgetSize);
+
+                //add the string to the array
+                $cleanedStrings['widgetSize'] = $widgetSize;
+
+                //check that the rating has been received
+                if (isset($widgetRating)) {//yes
+
+                    //add the string to the array
+                    $cleanedStrings['widgetRating'] = $widgetRating;
+
+                } else {//no
+
+                    //bounce back to input page with a message
+                    header('Location: addWidget.php?computerSays=missing rating');
+
+                }
+
+            } else {//no
+
+                //bounce back to input page with a message
+                header('Location: addWidget.php?computerSays=missing size');
+
+            }
+
+        } else {//no
+
+            //bounce back to input page with a message
+            header('Location: addWidget.php?computerSays=missing description');
+
+        }
+
+    } else {//no
+
+        //bounce back to input page with a message
+        header('Location: addWidget.php?computerSays=missing name');
+
+    }
+
+    //echo ($widgetName);die();
+    $cleanedData = ['widgetName' => $cleanedStrings['$widgetName'], 'widgetDescription' => $cleanedStrings['widgetDescription'], 'widgetSize' => $cleanedStrings['widgetSize'], 'widgetRating' => $cleanedStrings['widgetRating']];
+
+    //return the string
+    return $cleanedData;
+}
+
+function addWidgetToTheDatabase(object $db, string $widgetName, string $widgetDescription, int $widgetSize, int $widgetRating)
+{
+    /** adds a widget to the database **/
+
+    /*
+    *  This function:
+    *      1 receives and object, two strings and two integers
+    *      3 prepares a query object
+    *      4 binds all parameters
+    *      5 executes the data insertion into the database
+    *
+    * @param OBJECT - Database connection object (the database keys)
+    *
+    * @param STRING - name of the widget
+    *
+    * @param STRING - description of the widget
+    *
+    * @param INTEGER - size of the widget
+    *
+    * @param INTEGER - rating of the widget
+    */
+
+
+    //prepare the query
+    $query = $db->prepare("INSERT INTO `widgets` (`widgetName`, `widgetDescription`, `widgetSize` ,`widgetRating`) VALUES (:widgetName, :widgetDescription, :widgetSize, :widgetRating)");
+
+    //bind the parameters
+    $query->bindParam(':widgetName', $widgetName);
+    $query->bindParam(':widgetDescription', $widgetDescription);
+    $query->bindParam(':widgetSize', $widgetSize);
+    $query->bindParam('widgetRating', $widgetRating);
+
+    //run the query
+    $query->execute();
+
+    //go back to the index page with a success confirmation
+    header('Location: index.php?computerSays=' . $widgetName . ' has been added to the database');
+
 
 }
