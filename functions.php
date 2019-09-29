@@ -1,22 +1,4 @@
 <?php
-function var_dumper(array $myArray)
-{
-    /* ** Fancy Var dump **
-     * This function:
-     *      1 receives an array
-     *      3 outputs the html and data in an easy-to-read format
-     *      4 kills the script from running
-     *
-     * @Pararm ARRAY - An array is passed in for formatting
-     */
-
-    //output formatted html
-    print_r('<pre>');
-    print_r($myArray);
-    print_r('</pre>');
-    //kill the script
-    die();
-}
 
 function checkThePost(): array
 {
