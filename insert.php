@@ -5,7 +5,6 @@ require 'functions.php';
 
 //collect the post data
 $postData = checkThePost();
-var_dumper();
 
 //validate the data
 $validData = validateData($postData['widgetName'], $postData['widgetDescription'], $postData['widgetSize'], $postData['widgetRating']);
@@ -16,5 +15,5 @@ $cleanData = cleanTheData($validData['widgetName'], $validData['widgetDescriptio
 // get the keys to the database
 $db = getDbKey('seanCollection');
 
-//insert into database
+//add new widget into database
 addWidgetToTheDatabase($db, $cleanData['widgetName'], $cleanData['widgetDescription'], $cleanData['widgetSize'], $cleanData['widgetRating']);
